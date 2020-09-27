@@ -6,47 +6,46 @@
 void functionWhile(float x, float y, float i, float step);
 void functionFor(float x, float y, float i, float step);
 void functionDoWhile(float x, float y, float i, float step);
-void function(float x);
+
+void printTitleTable();
+void printMainTable(float x);
+void printTailTable();
+
+float function(float x);
 
 int main()
 {
 	float x, y;
-	int N;
+	int N; 
 	printf("Give me interval:\n");
 	scanf_s("%f%f", &x, &y);
 	printf("Give me number N:\n");
 	scanf_s("%d", &N);
 	float step = (y - x) / N;
 	float i = x;
-
 	functionDoWhile(x, y, i, step);
-
 	functionFor(x, y, i, step);
-
 	functionWhile(x, y, i, step);
-
 }
-
 void functionDoWhile(float x, float y, float i, float step)
 {
-
 	do
 	{
-
-		function(i);
+		printTitleTable();
+		printMainTable(i);
+		printTailTable();
 		i = i + step;
 	} while (i < y + 0.0001 && step != 0);
-
 }
-
 void functionFor(float x, float y, float i, float step)
 {
-
 	if (step != 0)
 	{
 		for (float i = x; i < y + 0.0001; i = i + step)
 		{
-			function(i);
+			printTitleTable();
+			printMainTable(i);
+			printTailTable();
 		}
 	}
 	else
@@ -54,37 +53,36 @@ void functionFor(float x, float y, float i, float step)
 		printf("Step = 0 ");
 	}
 }
-
 void functionWhile(float x, float y, float i, float step)
 {
-
 	while (i < y + 0.0001 && step != 0)
 	{
-		function(i);
+		printTitleTable();
+		printMainTable(i);
+		printTailTable();
 		i = i + step;
 	}
+
 }
 
-void function(float x)
+float function(float x)
 {
-	float F;
-	printf("+------------+------------+\n");
-	printf("|");
-	if (x != 0)
-	{
-		F = (sinf(x) * sinf(x)) / x;
-		printf(" X = %6.3f ", x);
-		printf("|");
-		printf(" Y = %6.3f ", F);
-		printf("|\n");
-	}
-	else
-	{
-		printf(" X = %6.3f ", x);
-		printf("|");
-		printf(" None ");
-		printf("|\n");
-	}
-	printf("+------------+------------+\n");
-
+	float F = (sinf(x) * sinf(x)) / x;
+	return F;
 }
+
+void printTitleTable()
+{
+	printf("+------------+------------+\n");
+	printf("|     X      |      Y     |\n");
+}
+void printMainTable(float x)
+{
+	printf("+------------+------------+\n");
+	printf("|  %6.3f    |  %6.3f    |\n", x, function(x));
+}
+void printTailTable()
+{
+	printf("---------------------------\n");
+}
+
