@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <math.h>
-void FUN1(float S_last, float Sprev, float fact, float Sum, float E);
-void second(float S_past, float S_prev, float a, float b, float e, float h, float x_0, float N, float x_i, float x_1, float S_sum);
+
+void function1(float S_last, float Sprev, float fact, float Sum, float E);
+void function2(float S_past, float S_prev, float a, float b, float e, float h, float x_0, float N, float x_i, float x_1, float S_sum);
+
 int main()
 {
 	float S_past = 0, S_prev = 0, a = 0, b = 0, e = 0, h = 0, x_0 = 0, N = 0, x_1 = 0, x_i = 0, S_sum = 0; 
 	float S_last = 0, Sprev = 0, fact = 1, Sum = 0, E = 0; 
-	FUN1(S_last, Sprev, fact, Sum, E);
-	second(S_past, S_prev, a, b, e, h, x_0, N, x_i, x_1, S_sum);
+
+	function1(S_last, Sprev, fact, Sum, E);
+
+	function2(S_past, S_prev, a, b, e, h, x_0, N, x_i, x_1, S_sum);
 }
 
-void FUN1(float S_last, float Sprev, float fact, float Sum, float E)
+void function1(float S_last, float Sprev, float fact, float Sum, float E)
 {
 	printf("First task\n");
 	int i = 1;
@@ -38,7 +42,7 @@ void FUN1(float S_last, float Sprev, float fact, float Sum, float E)
 	}
 }
 
-void second(float S_past, float S_prev, float a, float b, float e, float h, float x_0, float N, float x_i, float x_1, float S_sum)
+void function2(float S_past, float S_prev, float a, float b, float e, float h, float x_0, float N, float x_i, float x_1, float S_sum)
 {
 	printf("\n-------------------------------------------------");
 	printf("\nSecond task\n");
