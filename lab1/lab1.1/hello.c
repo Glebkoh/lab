@@ -4,6 +4,8 @@
 
 int checkPointPosition(float x, float y);
 
+float line(float x);
+
 int main()
 {
 	float x, y;
@@ -20,12 +22,18 @@ int main()
 }
 int checkPointPosition(float x, float y)
 {
-	int result;
-	if (y - 1 / 2 * x - 1 == 0)
+	int result = 100;
+	if (line(x) == y)
 		result = 0;
-	else if (y - 1 / 2 * x - 1 > 0)
+	else if (line(x) < y)
 		result = 1;
-	else if (y - 1 / 2 * x - 1 < 0)
+	else if (line(x) > y)
 		result = -1;
 	return result;
+}
+
+float line(float x)
+{
+	float y = x / 2  + 1;
+	return y;
 }
