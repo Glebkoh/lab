@@ -38,7 +38,7 @@ void checkingVariables(int* a, int i, int n, int j, int Swap)
 {
     for (i = 0; i < n; i++)  // сравниваем два соседних элемента.
     {
-        for (j = 0; j < n - 1; j++)
+        for (j = 0; j < n - i - 1; j++)
         {
             if (a[j] < a[j + 1] ) // положительные по убыванию 
             {
