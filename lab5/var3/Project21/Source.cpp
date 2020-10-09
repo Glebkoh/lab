@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void enteringArrayElements(int* a, int i, int n, int j, int Swap);
+void enterArrayElements(int* a, int i, int n, int j, int Swap);
 void changeFunction(int j, int* a, int Swap);
 void checkingVariables(int* a, int i, int n, int j, int Swap);
 
@@ -13,9 +13,9 @@ int main()
     int i = 0, n, j = 0, Swap = 0;
     printf(" Enter the size of the array: \n");
     scanf_s("%d", &n);
-    a = (int*)malloc(n * sizeof(int)); // Выделение памяти
+    a = (int*)malloc(n * sizeof(int)); // Г‚Г»Г¤ГҐГ«ГҐГ­ГЁГҐ ГЇГ Г¬ГїГІГЁ
 
-    enteringArrayElements(a, i, n, j, Swap);
+    enterArrayElements(a, i, n, j, Swap);
 
     for (i = 0; i < n; i++)
         printf("%d ", a[i]);
@@ -24,9 +24,9 @@ int main()
     return 0;
 }
 
-void enteringArrayElements(int* a, int i, int n, int j, int Swap)
+void enterArrayElements(int* a, int i, int n, int j, int Swap)
 {
-    for (i = 0; i < n; i++) // Ввод элементов массива
+    for (i = 0; i < n; i++) // Г‚ГўГ®Г¤ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Г¬Г Г±Г±ГЁГўГ 
     {
         printf("a[%d] = ", i);
         scanf_s("%d", &a[i]);
@@ -36,11 +36,11 @@ void enteringArrayElements(int* a, int i, int n, int j, int Swap)
 
 void checkingVariables(int* a, int i, int n, int j, int Swap)
 {
-    for (i = 0; i < n; i++)  // сравниваем два соседних элемента.
+    for (i = 0; i < n; i++)  // Г±Г°Г ГўГ­ГЁГўГ ГҐГ¬ Г¤ГўГ  Г±Г®Г±ГҐГ¤Г­ГЁГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ .
     {
         for (j = 0; j < n - i - 1; j++)
         {
-            if (a[j] < a[j + 1] ) // положительные по убыванию 
+            if (a[j] < a[j + 1] ) // ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»ГҐ ГЇГ® ГіГЎГ»ГўГ Г­ГЁГѕ 
             {
                 changeFunction(j, a, Swap);
             }
