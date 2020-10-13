@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void enterArrayElements(int* a, int i, int n, int j);
+void enterArrayElements(int* a, int n);
 void changeFunction(int j, int* a);
-void outputArrayElement(int i, int n, int* a);
-void checkVariables(int* a, int i, int n, int j);
+void outputArrayElement(int n, int* a);
+void checkVariables(int* a, int n);
 
 int main()
 {
@@ -14,32 +14,32 @@ int main()
     int i = 0, n, j = 0;
     printf(" Enter the size of the array: \n");
     scanf_s("%d", &n);
-    a = (int*)malloc(n * sizeof(int)); // Âûäåëåíèå ïàìÿòè
+    a = (int*)malloc(n * sizeof(int));
 
-    enterArrayElements(a, i, n, j);
-    outputArrayElement(i, n, a);
+    enterArrayElements(a, n);
+    checkVariables(a, n);
+    outputArrayElement(n, a);
 
     free(a);
     return 0;
 }
 
-void enterArrayElements(int* a, int i, int n, int j)
+void enterArrayElements(int* a, int n)
 {
-    for (i = 0; i < n; i++) // Ââîä ýëåìåíòîâ ìàññèâà
+    for (int i = 0; i < n; i++)
     {
         printf("a[%d] = ", i);
         scanf_s("%d", &a[i]);
     }
-    checkVariables(a, i, n, j);
 }
 
-void checkVariables(int* a, int i, int n, int j)
+void checkVariables(int* a, int n)
 {
-    for (i = 0; i < n; i++)  // ñðàâíèâàåì äâà ñîñåäíèõ ýëåìåíòà.
+    for (int i = 0; i < n; i++) 
     {
-        for (j = 0; j < n - i - 1; j++)
+        for (int j = 0; j < n - i - 1; j++)
         {
-            if (a[j] < a[j + 1]) // ïîëîæèòåëüíûå ïî óáûâàíèþ 
+            if (a[j] < a[j + 1]) 
             {
                 changeFunction(j, a);
             }
@@ -51,9 +51,9 @@ void checkVariables(int* a, int i, int n, int j)
     }
 }
 
-void outputArrayElement(int i, int n, int *a)
+void outputArrayElement(int n, int* a)
 {
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
         printf("%d ", a[i]);
 }
 
