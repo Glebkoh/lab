@@ -69,4 +69,3 @@ void  calculatingArithmeticSum(int count, int a[ARRAY_SIZE], float S)
     S = ((a[0] + a[count])/2.0)* count; //  cумма арифметической прогресии 
     printf("\n%f", S);
 }
-
