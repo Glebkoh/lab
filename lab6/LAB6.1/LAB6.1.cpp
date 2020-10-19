@@ -35,7 +35,7 @@ int main()
 
 void enterArraySize(int** a, int row, int column)
 {
-	if (column != 0)
+	if ( column != 0)
 	{
 		for (int i = 0; i < column; i++)
 		{
@@ -69,7 +69,7 @@ void transportationMatrixElements(int** a, int row, int column)
 		for (int j = 0; j < row; j++)
 		{	
 			printf("\na[%d][%d] = ", i, j);
-			printf("%d", a[j][i]);
+			printf("%d", a[column-1-j][row-1-i]);
 		}
 	}
 }
@@ -80,7 +80,7 @@ void writeSecondMatrix(int** a, int row, int column)
 	for (int i = 0; i < column; i++)
 	{
 		for (int j = 0; j < row; j++)
-			printf("%d ", a[j][i]);
+			printf("%d ", a[column - 1 - j][row - 1 - i]);
 		printf("\n");
 	}
 }
