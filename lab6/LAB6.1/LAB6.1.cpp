@@ -2,85 +2,102 @@
 #include <stdlib.h>
 #include <math.h>
 
-void enterArraySize(int** a, int row, int column);
-void writeFirstMatrix(int** a, int row, int column);
-void transportationMatrixElements(int** a, int row, int column);
-void writeSecondMatrix(int** a, int row, int column);
+int** allocatingMemoryRow(int** a, int column, int row);
+int* allocatingMemoryRowColumn(int** a, int column, int row, int i);
+
+void freeAllocatingMemory(int** a);
+void freeAllocatingMemoryColumn(int** a, int column, int row);
+void enterArraySize(int** a, int column, int row);
+void writeFirstMatrix(int** a, int column, int row);
+void writeSecondMatrix(int** a, int column, int row);
 
 int main()
 {
-	int** a, row, column;
-	printf(" Enter the number of items per line \n column = ");
-	scanf_s("%d", &column);
-	printf(" Enter the number of columns \n row = ");
+	int** a = 0, column, row, i = 0;
+	printf(" Enter the row \n row = ");
 	scanf_s("%d", &row);
+	printf(" Enter the column \n column = ");
+	scanf_s("%d", &column);
 
-	a = (int**)malloc(column * row * sizeof(int*));
-
-	printf(" Elements Array : \n");
-	enterArraySize(a, row, column);
-
-	printf("First Matrix:\n");
-	writeFirstMatrix(a, row, column);
-
-	printf(" \nNew Elements Array : ");
-	transportationMatrixElements(a, row, column);
-
-	printf("\nSecond Matrix:\n");
-	writeSecondMatrix(a, row, column);
-
-
-	free(a);
-}
-
-void enterArraySize(int** a, int row, int column)
-{
-	if ( column != 0)
+	if (row > 0 && column > 0)
 	{
-		for (int i = 0; i < column; i++)
-		{
-			a[i] = (int*)malloc(row * sizeof(int));
-			for (int j = 0; j < row; j++)
-			{
-				printf("a[%d][%d] = ", i, j);
-				scanf_s("%d", &a[i][j]);
-			}
-		}	
+		a = allocatingMemoryRow(a, column, row);
+
+		printf(" Elements Array : \n");
+		enterArraySize(a, column, row);
+
+		printf("First Matrix:\n");
+		writeFirstMatrix(a, column, row);
+
+		printf("\nSecond Matrix:\n");
+		writeSecondMatrix(a, column, row);
+
+		freeAllocatingMemoryColumn(a, column, row);
+		freeAllocatingMemory(a);
 	}
-	else printf("Invalid output n");
+	else printf("\n Print normal size Matrix , where column > 0 and row > 0");
 }
 
-void writeFirstMatrix(int** a, int row, int column)
+void enterArraySize(int** a, int column, int row)
 {
-	for (int i = 0; i < column; i++)
+	for (int i = 0; i < row; i++)
 	{
-		for (int j = 0; j < row; j++)
+		a[i] = allocatingMemoryRowColumn(a, column, row, i);
+		for (int j = 0; j < column; j++)
+		{
+			printf("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void writeFirstMatrix(int** a, int column, int row)
+{
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < column; j++)
 		printf("%d ", a[i][j]);
 		printf("\n");
 	}
 }
 
-void transportationMatrixElements(int** a, int row, int column)
+void writeSecondMatrix(int** a, int column, int row)
 {
-	column = fmin(column, row);
-	row = column;
-	for (int i = 0; i < column; i++)
+	for (int i = 0; i < row; i++)
 	{
-		for (int j = 0; j < row; j++)
-		{	
-			printf("\na[%d][%d] = ", i, j);
-			printf("%d", a[column-1-j][row-1-i]);
+		for (int j = 0; j < column; j++)
+		{
+			if (row - 1 - j > -1 && column - 1 - i > -1)
+			{
+				int controRow = fmin(row, column);
+				int controColumn = controRow;
+				printf("%d ", a[controRow - 1 - j][controColumn - 1 - i]);
+			}
+			else printf("%d ", a[i][j]);
 		}
-	}
-}
-void writeSecondMatrix(int** a, int row, int column)
-{
-	column = fmin(column, row);
-	row = column;
-	for (int i = 0; i < column; i++)
-	{
-		for (int j = 0; j < row; j++)
-			printf("%d ", a[column - 1 - j][row - 1 - i]);
 		printf("\n");
 	}
+}
+
+int** allocatingMemoryRow(int** a, int column, int row)
+{
+	a = (int**)malloc(row * sizeof(int*));
+	return a;
+}
+
+void freeAllocatingMemory(int** a)
+{
+free(a);
+}
+
+int* allocatingMemoryRowColumn(int** a, int column, int row, int i)
+{
+	a[i] = (int*)malloc(column * sizeof(int));
+	return a[i];
+}
+
+void freeAllocatingMemoryColumn(int** a, int column, int row)
+{
+	for (int i = 0; i < row; i++)
+		free(a[i]);
 }
