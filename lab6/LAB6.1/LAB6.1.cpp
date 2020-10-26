@@ -107,3 +107,4 @@ void freeAllocatingMemoryColumn(int** a, int column, int row)
 	for (int i = 0; i < row; i++)
 		free(a[i]);
 }
+

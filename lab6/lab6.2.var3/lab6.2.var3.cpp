@@ -96,7 +96,7 @@ int calculatedSumTrianglesUp1(int** a, int column, int row, int mid, int sum1)
 	{
 		for (int j = 0; j < column; j++)
 		{
-			if (j + count < column - count && i < row / 2) // верхний треугольник
+			if (j + count < column - count && i < row / 2)
 				sum1 = sum1 + a[i][j + count];
 		}
 		count++;
