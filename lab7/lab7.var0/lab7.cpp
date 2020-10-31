@@ -8,8 +8,6 @@ void printMatrix(int** a, int row, int column);
 void changeMatrix(int** a, int row, int column);
 void freeMatrix(int** a, int row, int column);
 
-
-
 int main()
 {
 	int** a = 0, row, column, i = 0;
@@ -64,14 +62,17 @@ void changeMatrix(int** a, int row, int column)
 
 		for (int i = 0; i < row; i++)
 		{
-			for (int j = 0; j < column; j++)
+			for (int j = 0; j < column/2; j++)
 			{ 
-				if (i % 2 == 0)
-					printf(" %d ", a[i][j]);
-				else if (i % 2 != 0)
-					printf(" %d ", a[i][column - 1 - j]);
+				if (i % 2 != 0)
+				{
+					int count = a[i][j];
+					a[i][j] = a[i][column - 1 - j];
+					a[i][column - 1 - j] = count;
+				}
 			}
 		}
+		printMatrix(a, row, column);
 }
 
 int** allocateMatrix(int** a, int row, int column)
@@ -86,9 +87,3 @@ void freeMatrix(int** a, int row, int column)
 		free(a[i]);
 	free(a);
 }
-
-
-
-
-
-
