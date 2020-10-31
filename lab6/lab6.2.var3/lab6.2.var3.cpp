@@ -2,19 +2,17 @@
 #include <stdlib.h>
 #include <math.h>
 
-int** allocatingMemoryRow(int** a, int column, int row);
-int* allocatingMemoryRowColumn(int** a, int column, int row, int i);
+int** allocateMatrix(int** a, int column, int row);
 
 int searchCentralElementMatrix(int** a, int column, int row, int mid);
 int calculatedSumTrianglesUp1(int** a, int column, int row, int mid, int sum1);
 int calculatedSumTrianglesDown2(int** a, int column, int row, int mid, int sum2);
 int calculatedSumTriangles(int sum1, int sum2);
 
-void freeAllocatingMemory(int** a);
-void freeAllocatingMemoryColumn(int** a, int column, int row);
-void enterArraySize(int** a, int column, int row);
-void writeFirstMatrix(int** a, int column, int row);
-void writeSecondMatrix(int** a, int column, int row, int sum);
+void enterArrayElements(int** a, int column, int row);
+void printMatrix(int** a, int column, int row);
+void changeMatirx(int** a, int column, int row, int sum);
+void freeMatrix(int** a, int row);
 
 int main()
 {
@@ -26,13 +24,13 @@ int main()
 
 	if (row > 0 && column > 0)
 	{
-		a = allocatingMemoryRow(a, column, row);
+		a = allocateMatrix(a, column, row);
 
 		printf(" Elements Array : \n");
-		enterArraySize(a, column, row);
+		enterArrayElements(a, column, row);
 
-		printf("First Matrix:\n");
-		writeFirstMatrix(a, column, row);
+		printf("Stareted Matrix:\n");
+		printMatrix(a, column, row);
 
 		mid = searchCentralElementMatrix(a, column, row, mid);
 
@@ -45,20 +43,20 @@ int main()
 		printf("\n Sum = Sum1 - Sum2 = ");
 		sum = calculatedSumTriangles(sum1, sum2);
 
-		printf("\nSecond Matrix:\n");
-		writeSecondMatrix(a, column, row, sum);
+		printf("\nNew Matrix:\n");
+		changeMatirx(a, column, row, sum);
 
-		freeAllocatingMemoryColumn(a, column, row);
-		freeAllocatingMemory(a);
+
+		freeMatrix(a, row);
 	}
 	else printf("\n Print normal size Matrix , where column > 0 and row > 0");
 }
 
-void enterArraySize(int** a, int column, int row)
+void enterArrayElements(int** a, int column, int row)
 {
 	for (int i = 0; i < row; i++)
 	{
-		a[i] = allocatingMemoryRowColumn(a, column, row, i);
+		a[i] = (int*)malloc(column * sizeof(int));
 		for (int j = 0; j < column; j++)
 		{
 			printf("a[%d][%d] = ", i, j);
@@ -67,7 +65,7 @@ void enterArraySize(int** a, int column, int row)
 	}
 }
 
-void writeFirstMatrix(int** a, int column, int row)
+void printMatrix(int** a, int column, int row)
 {
 	for (int i = 0; i < row; i++)
 	{
@@ -113,7 +111,7 @@ int calculatedSumTrianglesDown2(int** a, int column, int row, int mid, int sum2)
 	{
 		for (int j = 0; j < column; j++)
 		{
-			if (j + count < column - count && i != row / 2 && i < row/2)
+			if (j + count < column - count && i != row / 2 && i < row / 2)
 				sum2 = sum2 + a[row - 1 - count][j + count];
 		}
 		count++;
@@ -129,36 +127,22 @@ int calculatedSumTriangles(int sum1, int sum2)
 	return sum;
 }
 
-void writeSecondMatrix(int** a, int column, int row, int sum)
+void changeMatirx(int** a, int column, int row, int sum)
 {
 	a[row / 2][column / 2] = sum;
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-			printf("%d ", a[i][j]);
-		printf("\n");
-	}
+	printMatrix(a, column, row);
 }
 
-int** allocatingMemoryRow(int** a, int column, int row)
+int** allocateMatrix(int** a, int column, int row)
 {
-	a = (int**)malloc(row * sizeof(int*));
+	a = (int**)malloc(row * column * sizeof(int*));
 	return a;
 }
 
-void freeAllocatingMemory(int** a)
-{
-	free(a);
-}
-
-int* allocatingMemoryRowColumn(int** a, int column, int row, int i)
-{
-	a[i] = (int*)malloc(column * sizeof(int));
-	return a[i];
-}
-
-void freeAllocatingMemoryColumn(int** a, int column, int row)
+void freeMatrix(int** a, int row)
 {
 	for (int i = 0; i < row; i++)
 		free(a[i]);
+	free(a);
 }
+
