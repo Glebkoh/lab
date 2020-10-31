@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int** mallocRowMemory(int** a, int row, int column);
-int* mallocCloumnMemory(int** a, int column, int i, int row);
+int** allocateMatrix(int** a, int row, int column);
 
-void elementsMatrix(int** a, int row, int column);
-void firstMatrix(int** a, int row, int column);
-void secondMatrix(int** a, int row, int column);
-void freeMallocRowMemory(int** a, int row, int column);
-void freeMallocColumnMemory(int** a, int i, int row);
+void printElementsMatrix(int** a, int row, int column);
+void printMatrix(int** a, int row, int column);
+void changeMatrix(int** a, int row, int column);
+void freeMatrix(int** a, int row, int column);
+
 
 
 int main()
@@ -19,26 +18,28 @@ int main()
 	printf(" Enter column in Matrix : \n  column = ");
 	scanf_s("%d", &column);
 
-	a = mallocRowMemory(a, row, column);
+	if (row > 0 && column > 0)
+	{
+		a = allocateMatrix(a, row, column);
 
-	elementsMatrix(a, row, column);
+		printElementsMatrix(a, row, column);
 
-	printf("\n Start Matrix : \n");
-	firstMatrix(a, row, column);
+		printf("\n Start Matrix : \n");
+		printMatrix(a, row, column);
 
-	printf("\n New Matrix : \n");
-	secondMatrix(a, row, column);
+		printf("\n New Matrix : \n");
+		changeMatrix(a, row, column);
 
-	freeMallocRowMemory(a, row, column);
-	freeMallocColumnMemory(a, row, i);
-
+		freeMatrix(a, row, column);
+	}
+	else printf("\n Print normal size Matrix , where column > 0 and row > 0");
 }
 
-void elementsMatrix(int** a, int row, int column)
+void printElementsMatrix(int** a, int row, int column)
 {
 	for (int i = 0; i < row; i++)
 	{
-		a[i] = mallocCloumnMemory(a, row, i, column);
+		a[i] = (int*)malloc(column * sizeof(int));
 		for (int j = 0; j < column; j++)
 		{
 			printf("a[%d][%d] = ", i, j);
@@ -47,52 +48,47 @@ void elementsMatrix(int** a, int row, int column)
 	}
 }
 
-void firstMatrix(int** a, int row, int column)
+void printMatrix(int** a, int row, int column)
 {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < column; j++)
 			printf(" %d ", a[i][j]);
-			printf("\n");
-	}
-}
-
-void secondMatrix(int** a, int row, int column)
-{
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			if (i % 2 == 0)
-			printf(" %d ", a[i][j]);
-			else if (i % 2 != 0)
-				printf(" %d ", a[i][column - 1 - j]);
-		}
 		printf("\n");
-	} 
-}
-
-int** mallocRowMemory(int** a, int row, int column)
-	{
-		a = (int**)malloc(row *  sizeof(int*));
-		return a;
 	}
 
-int* mallocCloumnMemory(int** a, int column, int i, int row)
-{
-	a[i] = (int*)malloc(column * sizeof(int));
-	return a[i];
 }
 
-void freeMallocRowMemory(int** a, int row, int column)
+void changeMatrix(int** a, int row, int column)
 {
+
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < column; j++)
+			{ 
+				if (i % 2 == 0)
+					printf(" %d ", a[i][j]);
+				else if (i % 2 != 0)
+					printf(" %d ", a[i][column - 1 - j]);
+			}
+		}
+}
+
+int** allocateMatrix(int** a, int row, int column)
+{
+	a = (int**)malloc(row * column * sizeof(int*));
+	return a;
+}
+
+void freeMatrix(int** a, int row, int column)
+{
+	for (int i = 0; i < row; i++)
+		free(a[i]);
 	free(a);
 }
 
-void freeMallocColumnMemory(int** a, int i, int row)
-{
-	for (i = 0; i < row; i++) 
-	free(a[i]);
-}
+
+
+
 
 
